@@ -1,0 +1,70 @@
+Crea una página web tipo landing page, moderna y responsive, que funcione como visualizador de un calendario de eventos de hacking y ciberseguridad. El usuario no puede agregar ni editar eventos desde el frontend; todos los eventos se alimentan y actualizan desde un archivo externo en formato JSON que la página debe cargar dinámicamente. El diseño debe ser oscuro, minimalista, profesional, atractivo para la comunidad tech/hacker.
+
+Características requeridas:
+
+Calendario visual tipo vista de mes o agenda, con fechas resaltadas cuando hay eventos.
+
+Listado de eventos futuros mostrando: nombre, descripción corta, fecha y hora, país/ciudad o “online”, tipo de evento (CTF, conferencia, taller…), enlace al evento, logo/imagen y organizador.
+
+Búsqueda y filtrado dinámico por categoría, país/región, tipo de evento, o palabra clave.
+
+Responsive Design: visualización en dispositivos móviles y desktop.
+
+Información cargada 100% desde un archivo JSON externo (la página debe consumir y renderizar los datos dinámicamente). El formato JSON debe permitir fácil edición manual e incluir:
+
+título,
+
+descripción corta,
+
+descripción larga (opcional),
+
+fecha inicio/fin,
+
+hora,
+
+país/ubicación,
+
+modalidad (online/presencial/híbrido),
+
+enlace externo,
+
+organizador,
+
+imagen/logo opcional,
+
+nivel (básico, intermedio, avanzado),
+
+tags/categorías.
+
+No permitir edición, registro ni login. Solo pública, modo catálogo.
+
+Enlaces directos a los principales eventos de referencia mundial (puedes mostrar logos de BSides, Ekoparty, 8.8, DEFCON, entre otros, como ejemplos).
+
+Botón para descargar/compartir el calendario (formato iCal o JSON).
+
+Opcional: campo destacado para “próximo gran evento” en portada.
+
+El diseño debe transmitir un aire hacker (paleta oscura, detalles en neón o cian/magenta, tipografía tecnológica o monoespaciada).
+
+Ejemplo de estructura JSON:
+
+json
+[
+  {
+    "titulo": "Ekoparty 2025",
+    "descripcion": "Conferencia de seguridad informática referente en LATAM.",
+    "fecha_inicio": "2025-09-01",
+    "fecha_fin": "2025-09-03",
+    "hora": "09:00",
+    "pais": "Argentina",
+    "ciudad": "Buenos Aires",
+    "modalidad": "Presencial",
+    "enlace": "https://www.ekoparty.org/",
+    "organizador": "Ekoparty",
+    "imagen": "https://enlace-a-logo.com/logo.png",
+    "nivel": "Intermedio",
+    "tags": ["Conferencia", "LatAm", "Red Team"]
+  }
+]
+Resumen:
+Solo visualización. No edición vía frontend. La edición se realiza cambiando el JSON externo. La web debe cargar los eventos de forma dinámica y filtrable.
