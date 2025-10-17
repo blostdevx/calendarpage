@@ -27,11 +27,11 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center mb-4">
               <img 
                 src="/sochisi-logo.png" 
                 alt="SOCHISI Logo" 
-                className="w-16 h-16 object-contain"
+                className="w-16 h-16 object-contain -mr-2"
               />
               <span className="text-2xl font-bold">SOCHISI</span>
             </div>

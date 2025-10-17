@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="250" cy="250" r="240" fill="#030712"/>
+  
+  <!-- Brain and fingerprint icon (simplified version) -->
+  <g filter="url(#glow)">
+    <!-- Simplified fingerprint side -->
+    <path d="M150 200 Q120 250 150 300 M130 230 Q110 250 130 270 M140 210 Q125 250 140 290 M160 190 Q140 250 160 310" 
+          stroke="#22D3EE" stroke-width="8" fill="none" stroke-linecap="round"/>
+    
+    <!-- Simplified brain side -->
+    <path d="M300 200 C310 180, 340 180, 350 200 C360 220, 360 280, 350 300 C340 320, 310 320, 300 300 
+             M305 220 Q315 230, 305 240 M325 220 Q335 230, 325 240 
+             M305 260 Q315 270, 305 280 M325 260 Q335 270, 325 280"
+          stroke="#FFFFFF" stroke-width="8" fill="none" stroke-linecap="round"/>
+    
+    <!-- Shield outline -->
+    <path d="M100 150 L250 100 L400 150 L400 280 Q400 360, 250 420 Q100 360, 100 280 Z" 
+          stroke="#22D3EE" stroke-width="6" fill="none"/>
+  </g>
+</svg>
