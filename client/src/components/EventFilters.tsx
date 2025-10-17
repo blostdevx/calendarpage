@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 
 interface EventFiltersProps {
   onFilterChange?: (filters: FilterState) => void;
+  currentFilters?: FilterState;
 }
 
 interface FilterState {
@@ -14,9 +15,10 @@ interface FilterState {
   countries: string[];
   modalidades: string[];
   niveles: string[];
+  selectedDate?: Date;
 }
 
-export default function EventFilters({ onFilterChange }: EventFiltersProps) {
+export default function EventFilters({ onFilterChange, currentFilters }: EventFiltersProps) {
   const [search, setSearch] = useState("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedModalidades, setSelectedModalidades] = useState<string[]>([]);
@@ -38,7 +40,8 @@ export default function EventFilters({ onFilterChange }: EventFiltersProps) {
         categories: newFilters,
         countries: [],
         modalidades: selectedModalidades,
-        niveles: selectedNiveles
+        niveles: selectedNiveles,
+        selectedDate: currentFilters?.selectedDate
       });
     }
   };
@@ -55,7 +58,8 @@ export default function EventFilters({ onFilterChange }: EventFiltersProps) {
         categories: selectedCategories,
         countries: [],
         modalidades: newFilters,
-        niveles: selectedNiveles
+        niveles: selectedNiveles,
+        selectedDate: currentFilters?.selectedDate
       });
     }
   };
@@ -72,7 +76,8 @@ export default function EventFilters({ onFilterChange }: EventFiltersProps) {
         categories: selectedCategories,
         countries: [],
         modalidades: selectedModalidades,
-        niveles: newFilters
+        niveles: newFilters,
+        selectedDate: currentFilters?.selectedDate
       });
     }
   };
@@ -89,7 +94,8 @@ export default function EventFilters({ onFilterChange }: EventFiltersProps) {
         categories: [],
         countries: [],
         modalidades: [],
-        niveles: []
+        niveles: [],
+        selectedDate: undefined
       });
     }
   };
@@ -102,7 +108,8 @@ export default function EventFilters({ onFilterChange }: EventFiltersProps) {
         categories: selectedCategories,
         countries: [],
         modalidades: selectedModalidades,
-        niveles: selectedNiveles
+        niveles: selectedNiveles,
+        selectedDate: currentFilters?.selectedDate
       });
     }
   };

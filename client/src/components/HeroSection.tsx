@@ -9,10 +9,22 @@ interface HeroSectionProps {
     date: string;
     location: string;
     modalidad: string;
+    enlace?: string;
   };
 }
 
 export default function HeroSection({ featuredEvent }: HeroSectionProps) {
+  const scrollToEvents = () => {
+    const eventsSection = document.querySelector('[data-section="events"]');
+    if (eventsSection) {
+      eventsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const downloadCalendar = () => {
+    window.open('/eventos.json', '_blank');
+  };
+
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div 
@@ -73,8 +85,15 @@ export default function HeroSection({ featuredEvent }: HeroSectionProps) {
                 size="lg" 
                 className="bg-primary hover:bg-primary/90"
                 data-testid="button-register-event"
+                asChild={!!featuredEvent?.enlace}
               >
-                Ver Detalles
+                {featuredEvent?.enlace ? (
+                  <a href={featuredEvent.enlace} target="_blank" rel="noopener noreferrer">
+                    Ver Detalles
+                  </a>
+                ) : (
+                  <span>Ver Detalles</span>
+                )}
               </Button>
             </div>
           </div>
@@ -86,6 +105,7 @@ export default function HeroSection({ featuredEvent }: HeroSectionProps) {
             variant="outline" 
             className="backdrop-blur-sm"
             data-testid="button-view-events"
+            onClick={scrollToEvents}
           >
             <Calendar className="w-4 h-4 mr-2" />
             Ver Todos los Eventos
@@ -94,6 +114,7 @@ export default function HeroSection({ featuredEvent }: HeroSectionProps) {
             size="lg" 
             variant="ghost"
             data-testid="button-download-calendar"
+            onClick={downloadCalendar}
           >
             Descargar Calendario
           </Button>

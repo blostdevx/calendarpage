@@ -2,11 +2,18 @@ import { SiX, SiLinkedin, SiGithub, SiDiscord } from "react-icons/si";
 import { Shield } from "lucide-react";
 
 export default function Footer() {
+  const scrollToSection = (sectionId: string) => {
+    const section = document.querySelector(`[data-section="${sectionId}"]`);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   const socialLinks = [
-    { icon: SiX, href: "#", label: "Twitter" },
-    { icon: SiLinkedin, href: "#", label: "LinkedIn" },
-    { icon: SiGithub, href: "#", label: "GitHub" },
-    { icon: SiDiscord, href: "#", label: "Discord" },
+    { icon: SiX, href: "https://x.com", label: "Twitter" },
+    { icon: SiLinkedin, href: "https://linkedin.com", label: "LinkedIn" },
+    { icon: SiGithub, href: "https://github.com", label: "GitHub" },
+    { icon: SiDiscord, href: "https://discord.com", label: "Discord" },
   ];
 
   const eventLogos = [
@@ -34,19 +41,31 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Enlaces Rápidos</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="#" className="hover:text-primary transition-colors" data-testid="link-footer-inicio">
+                <button 
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+                  className="hover:text-primary transition-colors" 
+                  data-testid="link-footer-inicio"
+                >
                   Inicio
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors" data-testid="link-footer-eventos">
+                <button 
+                  onClick={() => scrollToSection('events')} 
+                  className="hover:text-primary transition-colors" 
+                  data-testid="link-footer-eventos"
+                >
                   Eventos
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors" data-testid="link-footer-contacto">
+                <button 
+                  onClick={() => scrollToSection('contact')} 
+                  className="hover:text-primary transition-colors" 
+                  data-testid="link-footer-contacto"
+                >
                   Contacto
-                </a>
+                </button>
               </li>
             </ul>
           </div>

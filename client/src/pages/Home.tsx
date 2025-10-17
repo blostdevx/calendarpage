@@ -16,6 +16,7 @@ interface FilterState {
   countries: string[];
   modalidades: string[];
   niveles: string[];
+  selectedDate?: Date;
 }
 
 export default function Home() {
@@ -26,7 +27,8 @@ export default function Home() {
     categories: [],
     countries: [],
     modalidades: [],
-    niveles: []
+    niveles: [],
+    selectedDate: undefined
   });
 
   useEffect(() => {
@@ -67,6 +69,17 @@ export default function Home() {
       if (!hasCategory) return false;
     }
 
+    if (filters.selectedDate) {
+      const eventDate = new Date(evento.fecha_inicio);
+      const selectedDate = new Date(filters.selectedDate);
+      
+      if (eventDate.getFullYear() !== selectedDate.getFullYear() ||
+          eventDate.getMonth() !== selectedDate.getMonth() ||
+          eventDate.getDate() !== selectedDate.getDate()) {
+        return false;
+      }
+    }
+
     return true;
   });
 
@@ -86,7 +99,8 @@ export default function Home() {
       year: 'numeric' 
     }),
     location: `${upcomingEventos[0].ciudad}, ${upcomingEventos[0].pais}`,
-    modalidad: upcomingEventos[0].modalidad
+    modalidad: upcomingEventos[0].modalidad,
+    enlace: upcomingEventos[0].enlace
   } : undefined;
 
   const calendarEvents = eventos.map(e => ({
@@ -125,7 +139,7 @@ export default function Home() {
         { icon: Zap, label: "Eventos Activos", value: upcomingEventos.length, suffix: "" },
       ]} />
 
-      <div className="max-w-7xl mx-auto px-4 py-20">
+      <div className="max-w-7xl mx-auto px-4 py-20" data-section="events">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Calendario de Eventos</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -135,11 +149,14 @@ export default function Home() {
 
         <div className="grid lg:grid-cols-4 gap-8 mb-20">
           <div className="lg:col-span-1">
-            <EventFilters onFilterChange={setFilters} />
+            <EventFilters onFilterChange={setFilters} currentFilters={filters} />
           </div>
           
           <div className="lg:col-span-3 space-y-8">
-            <MonthlyCalendar events={calendarEvents} />
+            <MonthlyCalendar 
+              events={calendarEvents} 
+              onDateClick={(date) => setFilters({ ...filters, selectedDate: date })}
+            />
             
             <div>
               <h3 className="text-2xl font-bold mb-6">

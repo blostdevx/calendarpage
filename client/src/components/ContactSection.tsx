@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
 
 export default function ContactSection() {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,11 +16,21 @@ export default function ContactSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    
+    toast({
+      title: "¡Mensaje enviado!",
+      description: `Gracias ${formData.name}, nos pondremos en contacto contigo pronto.`,
+    });
+    
+    setFormData({
+      name: "",
+      email: "",
+      message: ""
+    });
   };
 
   return (
-    <div className="py-20 bg-gradient-to-b from-background/50 to-background">
+    <div className="py-20 bg-gradient-to-b from-background/50 to-background" data-section="contact">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Contáctanos</h2>
