@@ -103,13 +103,6 @@ export default function Home() {
     enlace: upcomingEventos[0].enlace
   } : undefined;
 
-  const calendarEvents = eventos.map(e => ({
-    date: e.fecha_inicio,
-    count: 1,
-    type: e.tags.includes('CTF') ? 'ctf' as const : 
-          e.tags.includes('Conferencia') ? 'conference' as const : 
-          'workshop' as const
-  }));
 
   const totalEventos = eventos.length;
   const totalPaises = new Set(eventos.map(e => e.pais)).size;
@@ -154,8 +147,8 @@ export default function Home() {
           
           <div className="lg:col-span-3 space-y-8">
             <MonthlyCalendar 
-              events={calendarEvents} 
-              onDateClick={(date) => setFilters({ ...filters, selectedDate: date })}
+              eventos={eventos} 
+              onDateClick={(date) => setFilters({ ...filters, selectedDate: date || undefined })}
             />
             
             <div>
