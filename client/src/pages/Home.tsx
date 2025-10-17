@@ -87,9 +87,16 @@ export default function Home() {
     new Date(a.fecha_inicio).getTime() - new Date(b.fecha_inicio).getTime()
   );
 
-  const upcomingEventos = sortedEventos.filter(e => 
-    new Date(e.fecha_inicio) >= new Date()
-  ).slice(0, 6);
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+  
+  const upcomingEventos = sortedEventos.filter(e => {
+    const eventDate = new Date(e.fecha_inicio);
+    return eventDate >= now && 
+           eventDate.getMonth() === currentMonth && 
+           eventDate.getFullYear() === currentYear;
+  }).slice(0, 6);
 
   const featuredEventData = eventos.find(e => e.destacado === true) || upcomingEventos[0];
   const featuredEvent = featuredEventData ? {
