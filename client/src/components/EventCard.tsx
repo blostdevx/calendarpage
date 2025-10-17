@@ -9,6 +9,7 @@ interface EventCardProps {
     titulo: string;
     descripcion: string;
     fecha_inicio: string;
+    fecha_fin?: string;
     hora: string;
     pais: string;
     ciudad: string;
@@ -40,7 +41,25 @@ export default function EventCard({ event }: EventCardProps) {
   };
 
   const handleAddToGoogleCalendar = () => {
-    console.log('Adding to Google Calendar:', event.titulo);
+    const [hours, minutes] = event.hora.split(':').map(Number);
+    
+    const startDate = new Date(event.fecha_inicio);
+    startDate.setHours(hours, minutes, 0, 0);
+    
+    const endDate = event.fecha_fin ? new Date(event.fecha_fin) : new Date(startDate);
+    if (!event.fecha_fin) {
+      endDate.setHours(hours + 2, minutes, 0, 0);
+    } else {
+      endDate.setHours(hours, minutes, 0, 0);
+    }
+    
+    const formatDateForGoogle = (date: Date) => {
+      return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    };
+
+    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.titulo)}&dates=${formatDateForGoogle(startDate)}/${formatDateForGoogle(endDate)}&details=${encodeURIComponent(event.descripcion + '\n\n' + event.enlace)}&location=${encodeURIComponent(event.ciudad + ', ' + event.pais)}`;
+    
+    window.open(googleCalendarUrl, '_blank');
   };
 
   return (

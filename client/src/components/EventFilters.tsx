@@ -26,12 +26,55 @@ export default function EventFilters({ onFilterChange }: EventFiltersProps) {
   const modalidades = ["Online", "Presencial", "Híbrido"];
   const niveles = ["Básico", "Intermedio", "Avanzado"];
 
-  const toggleFilter = (value: string, currentFilters: string[], setter: (filters: string[]) => void) => {
-    const newFilters = currentFilters.includes(value)
-      ? currentFilters.filter(f => f !== value)
-      : [...currentFilters, value];
-    setter(newFilters);
-    console.log('Filter toggled:', value, newFilters);
+  const toggleCategory = (value: string) => {
+    const newFilters = selectedCategories.includes(value)
+      ? selectedCategories.filter(f => f !== value)
+      : [...selectedCategories, value];
+    setSelectedCategories(newFilters);
+    
+    if (onFilterChange) {
+      onFilterChange({
+        search,
+        categories: newFilters,
+        countries: [],
+        modalidades: selectedModalidades,
+        niveles: selectedNiveles
+      });
+    }
+  };
+
+  const toggleModalidad = (value: string) => {
+    const newFilters = selectedModalidades.includes(value)
+      ? selectedModalidades.filter(f => f !== value)
+      : [...selectedModalidades, value];
+    setSelectedModalidades(newFilters);
+    
+    if (onFilterChange) {
+      onFilterChange({
+        search,
+        categories: selectedCategories,
+        countries: [],
+        modalidades: newFilters,
+        niveles: selectedNiveles
+      });
+    }
+  };
+
+  const toggleNivel = (value: string) => {
+    const newFilters = selectedNiveles.includes(value)
+      ? selectedNiveles.filter(f => f !== value)
+      : [...selectedNiveles, value];
+    setSelectedNiveles(newFilters);
+    
+    if (onFilterChange) {
+      onFilterChange({
+        search,
+        categories: selectedCategories,
+        countries: [],
+        modalidades: selectedModalidades,
+        niveles: newFilters
+      });
+    }
   };
 
   const clearAllFilters = () => {
@@ -39,7 +82,29 @@ export default function EventFilters({ onFilterChange }: EventFiltersProps) {
     setSelectedCategories([]);
     setSelectedModalidades([]);
     setSelectedNiveles([]);
-    console.log('All filters cleared');
+    
+    if (onFilterChange) {
+      onFilterChange({
+        search: "",
+        categories: [],
+        countries: [],
+        modalidades: [],
+        niveles: []
+      });
+    }
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+    if (onFilterChange) {
+      onFilterChange({
+        search: value,
+        categories: selectedCategories,
+        countries: [],
+        modalidades: selectedModalidades,
+        niveles: selectedNiveles
+      });
+    }
   };
 
   const hasActiveFilters = search || selectedCategories.length > 0 || 
@@ -52,7 +117,7 @@ export default function EventFilters({ onFilterChange }: EventFiltersProps) {
         <Input
           placeholder="Buscar eventos..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => handleSearchChange(e.target.value)}
           className="pl-10 bg-background/50"
           data-testid="input-search-events"
         />
@@ -71,7 +136,7 @@ export default function EventFilters({ onFilterChange }: EventFiltersProps) {
                     ? 'bg-primary text-primary-foreground border-primary'
                     : 'border-muted/30'
                 }`}
-                onClick={() => toggleFilter(category, selectedCategories, setSelectedCategories)}
+                onClick={() => toggleCategory(category)}
                 data-testid={`badge-category-${category.toLowerCase()}`}
               >
                 {category}
@@ -92,7 +157,7 @@ export default function EventFilters({ onFilterChange }: EventFiltersProps) {
                     ? 'bg-primary text-primary-foreground border-primary'
                     : 'border-muted/30'
                 }`}
-                onClick={() => toggleFilter(modalidad, selectedModalidades, setSelectedModalidades)}
+                onClick={() => toggleModalidad(modalidad)}
                 data-testid={`badge-modalidad-${modalidad.toLowerCase()}`}
               >
                 {modalidad}
@@ -113,7 +178,7 @@ export default function EventFilters({ onFilterChange }: EventFiltersProps) {
                     ? 'bg-primary text-primary-foreground border-primary'
                     : 'border-muted/30'
                 }`}
-                onClick={() => toggleFilter(nivel, selectedNiveles, setSelectedNiveles)}
+                onClick={() => toggleNivel(nivel)}
                 data-testid={`badge-nivel-${nivel.toLowerCase()}`}
               >
                 {nivel}
