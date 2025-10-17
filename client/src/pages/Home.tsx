@@ -142,7 +142,11 @@ export default function Home() {
 
         <div className="grid lg:grid-cols-4 gap-8 mb-20">
           <div className="lg:col-span-1">
-            <EventFilters onFilterChange={setFilters} currentFilters={filters} />
+            <EventFilters 
+              onFilterChange={setFilters} 
+              currentFilters={filters}
+              eventos={eventos}
+            />
           </div>
           
           <div className="lg:col-span-3 space-y-8">

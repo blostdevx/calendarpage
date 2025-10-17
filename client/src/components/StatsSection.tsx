@@ -14,10 +14,10 @@ interface StatsSectionProps {
 
 export default function StatsSection({ stats }: StatsSectionProps) {
   const defaultStats: Stat[] = stats || [
-    { icon: Calendar, label: "Total de Eventos", value: 150, suffix: "+" },
-    { icon: Globe, label: "Países", value: 45, suffix: "" },
-    { icon: TrendingUp, label: "Próximos Eventos", value: 28, suffix: "" },
-    { icon: Zap, label: "Eventos Activos", value: 12, suffix: "" },
+    { icon: Calendar, label: "Total de Eventos", value: 0, suffix: "" },
+    { icon: Globe, label: "Países", value: 0, suffix: "" },
+    { icon: TrendingUp, label: "Próximos Eventos", value: 0, suffix: "" },
+    { icon: Zap, label: "Eventos Activos", value: 0, suffix: "" },
   ];
 
   return (
