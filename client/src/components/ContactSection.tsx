@@ -5,9 +5,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 export default function ContactSection() {
   const { toast } = useToast();
+  const { ref: leftRef, isVisible: leftVisible } = useScrollReveal();
+  const { ref: rightRef, isVisible: rightVisible } = useScrollReveal();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -40,7 +43,7 @@ export default function ContactSection() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="space-y-6">
+          <div ref={leftRef} className={`space-y-6 scroll-reveal-left ${leftVisible ? 'is-visible' : ''}`}>
             <div className="bg-card/30 backdrop-blur-sm rounded-xl border border-primary/10 p-6 hover-elevate">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center">
@@ -84,50 +87,52 @@ export default function ContactSection() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <Label htmlFor="name">Nombre</Label>
-              <Input
-                id="name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder="Tu nombre"
-                className="bg-background/50"
-                data-testid="input-contact-name"
-              />
-            </div>
+          <div ref={rightRef} className={`scroll-reveal-right ${rightVisible ? 'is-visible' : ''}`}>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <Label htmlFor="name">Nombre</Label>
+                <Input
+                  id="name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  placeholder="Tu nombre"
+                  className="bg-background/50"
+                  data-testid="input-contact-name"
+                />
+              </div>
 
-            <div>
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="tu@email.com"
-                className="bg-background/50"
-                data-testid="input-contact-email"
-              />
-            </div>
+              <div>
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  placeholder="tu@email.com"
+                  className="bg-background/50"
+                  data-testid="input-contact-email"
+                />
+              </div>
 
-            <div>
-              <Label htmlFor="message">Mensaje</Label>
-              <Textarea
-                id="message"
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                placeholder="¿En qué podemos ayudarte?"
-                rows={5}
-                className="bg-background/50 resize-none"
-                data-testid="input-contact-message"
-              />
-            </div>
+              <div>
+                <Label htmlFor="message">Mensaje</Label>
+                <Textarea
+                  id="message"
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  placeholder="¿En qué podemos ayudarte?"
+                  rows={5}
+                  className="bg-background/50 resize-none"
+                  data-testid="input-contact-message"
+                />
+              </div>
 
-            <Button type="submit" className="w-full" data-testid="button-submit-contact">
-              <Send className="w-4 h-4 mr-2" />
-              Enviar Mensaje
-            </Button>
-          </form>
+              <Button type="submit" className="w-full" data-testid="button-submit-contact">
+                <Send className="w-4 h-4 mr-2" />
+                Enviar Mensaje
+              </Button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

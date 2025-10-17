@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { type Evento } from "@shared/schema";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 interface MonthlyCalendarProps {
   eventos?: Evento[];
@@ -14,6 +15,7 @@ export default function MonthlyCalendar({ eventos = [], onDateClick }: MonthlyCa
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedEvents, setSelectedEvents] = useState<Evento[]>([]);
+  const { ref, isVisible } = useScrollReveal();
 
   const daysOfWeek = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
   
@@ -174,7 +176,7 @@ export default function MonthlyCalendar({ eventos = [], onDateClick }: MonthlyCa
   }
 
   return (
-    <div className={`flex gap-4 transition-all duration-500 ${selectedEvents.length > 0 ? 'flex-row' : 'flex-col'}`}>
+    <div ref={ref} className={`flex gap-4 transition-all duration-500 scroll-reveal ${isVisible ? 'is-visible' : ''} ${selectedEvents.length > 0 ? 'flex-row' : 'flex-col'}`}>
       <div className={`bg-card/30 backdrop-blur-sm rounded-xl border border-primary/10 p-6 transition-all duration-500 ${
         selectedEvents.length > 0 ? 'w-1/2' : 'w-full'
       }`}>

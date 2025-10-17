@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Calendar, Globe, TrendingUp, Zap } from "lucide-react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 interface Stat {
   icon: typeof Calendar;
@@ -35,6 +36,7 @@ export default function StatsSection({ stats }: StatsSectionProps) {
 
 function StatCard({ stat, index }: { stat: Stat; index: number }) {
   const [count, setCount] = useState(0);
+  const { ref, isVisible } = useScrollReveal();
   const Icon = stat.icon;
 
   useEffect(() => {
@@ -58,7 +60,8 @@ function StatCard({ stat, index }: { stat: Stat; index: number }) {
 
   return (
     <div 
-      className="bg-card/30 backdrop-blur-sm rounded-xl border border-primary/10 p-6 hover-elevate transition-all"
+      ref={ref}
+      className={`bg-card/30 backdrop-blur-sm rounded-xl border border-primary/10 p-6 hover-elevate transition-all scroll-reveal-scale ${isVisible ? 'is-visible' : ''}`}
       style={{ animationDelay: `${index * 0.1}s` }}
       data-testid={`card-stat-${index}`}
     >

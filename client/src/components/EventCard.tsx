@@ -2,6 +2,7 @@ import { Calendar, MapPin, ExternalLink, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 interface EventCardProps {
   event: {
@@ -22,6 +23,8 @@ interface EventCardProps {
 }
 
 export default function EventCard({ event }: EventCardProps) {
+  const { ref, isVisible } = useScrollReveal();
+  
   const getModalidadColor = (modalidad: string) => {
     switch (modalidad.toLowerCase()) {
       case 'online': return 'bg-green-500/20 text-green-400 border-green-500/30';
@@ -64,7 +67,8 @@ export default function EventCard({ event }: EventCardProps) {
 
   return (
     <Card 
-      className="group overflow-hidden hover-elevate transition-all duration-300 hover:-translate-y-1 bg-card/50 backdrop-blur-sm border-primary/10"
+      ref={ref}
+      className={`group overflow-hidden hover-elevate transition-all duration-300 hover:-translate-y-1 bg-card/50 backdrop-blur-sm border-primary/10 scroll-reveal ${isVisible ? 'is-visible' : ''}`}
       data-testid={`card-event-${event.id}`}
     >
       {event.imagen && (
