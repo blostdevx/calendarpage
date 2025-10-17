@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Calendar, Globe, TrendingUp, Zap } from "lucide-react";
 import HeroSection from "@/components/HeroSection";
 import StatsSection from "@/components/StatsSection";
 import EventFilters from "@/components/EventFilters";
@@ -118,10 +119,10 @@ export default function Home() {
       <HeroSection featuredEvent={featuredEvent} />
       
       <StatsSection stats={[
-        { icon: require("lucide-react").Calendar, label: "Total de Eventos", value: totalEventos, suffix: "" },
-        { icon: require("lucide-react").Globe, label: "Países", value: totalPaises, suffix: "" },
-        { icon: require("lucide-react").TrendingUp, label: "Próximos Eventos", value: proximosEventos, suffix: "" },
-        { icon: require("lucide-react").Zap, label: "Eventos Activos", value: upcomingEventos.length, suffix: "" },
+        { icon: Calendar, label: "Total de Eventos", value: totalEventos, suffix: "" },
+        { icon: Globe, label: "Países", value: totalPaises, suffix: "" },
+        { icon: TrendingUp, label: "Próximos Eventos", value: proximosEventos, suffix: "" },
+        { icon: Zap, label: "Eventos Activos", value: upcomingEventos.length, suffix: "" },
       ]} />
 
       <div className="max-w-7xl mx-auto px-4 py-20">
