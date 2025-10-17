@@ -117,6 +117,13 @@ export default function Home() {
   const proximosEventos = eventos.filter(e => 
     new Date(e.fecha_inicio) >= new Date()
   ).length;
+  
+  const eventosActivosDelMes = eventos.filter(e => {
+    const eventDate = new Date(e.fecha_inicio);
+    return eventDate >= now && 
+           eventDate.getMonth() === currentMonth && 
+           eventDate.getFullYear() === currentYear;
+  }).length;
 
   if (loading) {
     return (
@@ -137,7 +144,7 @@ export default function Home() {
         { icon: Calendar, label: "Total de Eventos", value: totalEventos, suffix: "" },
         { icon: Globe, label: "Países", value: totalPaises, suffix: "" },
         { icon: TrendingUp, label: "Próximos Eventos", value: proximosEventos, suffix: "" },
-        { icon: Zap, label: "Eventos Activos", value: upcomingEventos.length, suffix: "" },
+        { icon: Zap, label: "Eventos Activos", value: eventosActivosDelMes, suffix: "" },
       ]} />
 
       <div className="max-w-7xl mx-auto px-4 py-20" data-section="events">
