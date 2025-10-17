@@ -17,6 +17,7 @@ export const eventoSchema = z.object({
   imagen: z.string().url().optional(),
   nivel: z.enum(["Básico", "Intermedio", "Avanzado"]),
   tags: z.array(z.string()),
+  destacado: z.boolean().optional(),
 });
 
 export type Evento = z.infer<typeof eventoSchema>;

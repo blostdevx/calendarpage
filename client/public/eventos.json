@@ -14,7 +14,8 @@
     "organizador": "DEF CON",
     "imagen": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=450&fit=crop",
     "nivel": "Avanzado",
-    "tags": ["Conferencia", "CTF", "Hacking", "Networking"]
+    "tags": ["Conferencia", "CTF", "Hacking", "Networking"],
+    "destacado": true
   },
   {
     "id": "ekoparty2025",

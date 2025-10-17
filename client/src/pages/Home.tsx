@@ -91,16 +91,17 @@ export default function Home() {
     new Date(e.fecha_inicio) >= new Date()
   ).slice(0, 6);
 
-  const featuredEvent = upcomingEventos[0] ? {
-    title: upcomingEventos[0].titulo,
-    date: new Date(upcomingEventos[0].fecha_inicio).toLocaleDateString('es-ES', { 
+  const featuredEventData = eventos.find(e => e.destacado === true) || upcomingEventos[0];
+  const featuredEvent = featuredEventData ? {
+    title: featuredEventData.titulo,
+    date: new Date(featuredEventData.fecha_inicio).toLocaleDateString('es-ES', { 
       day: 'numeric', 
       month: 'long', 
       year: 'numeric' 
     }),
-    location: `${upcomingEventos[0].ciudad}, ${upcomingEventos[0].pais}`,
-    modalidad: upcomingEventos[0].modalidad,
-    enlace: upcomingEventos[0].enlace
+    location: `${featuredEventData.ciudad}, ${featuredEventData.pais}`,
+    modalidad: featuredEventData.modalidad,
+    enlace: featuredEventData.enlace
   } : undefined;
 
 
