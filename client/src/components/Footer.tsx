@@ -27,13 +27,13 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-2 mb-4">
               <img 
                 src="/sochisi-logo.png" 
                 alt="SOCHISI Logo" 
-                className="w-10 h-10 object-contain"
+                className="w-16 h-16 object-contain"
               />
-              <span className="text-xl font-bold">SOCHISI</span>
+              <span className="text-2xl font-bold">SOCHISI</span>
             </div>
             <p className="text-sm text-muted-foreground">
               Tu calendario definitivo de eventos de hacking y ciberseguridad a nivel mundial.
