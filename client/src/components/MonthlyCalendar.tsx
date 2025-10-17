@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { type Evento } from "@shared/schema";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface MonthlyCalendarProps {
   eventos?: Evento[];
@@ -16,6 +17,7 @@ export default function MonthlyCalendar({ eventos = [], onDateClick }: MonthlyCa
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedEvents, setSelectedEvents] = useState<Evento[]>([]);
   const { ref, isVisible } = useScrollReveal();
+  const isMobile = useIsMobile();
 
   const daysOfWeek = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
   
@@ -142,7 +144,7 @@ export default function MonthlyCalendar({ eventos = [], onDateClick }: MonthlyCa
       </button>
     );
 
-    if (hasEvents && firstEvent) {
+    if (hasEvents && firstEvent && !isMobile) {
       days.push(
         <TooltipProvider key={day} delayDuration={300}>
           <Tooltip>
