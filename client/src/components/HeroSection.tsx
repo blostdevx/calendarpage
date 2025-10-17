@@ -1,7 +1,7 @@
 import { Calendar, Clock, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import heroImage from "@assets/generated_images/Cybersecurity_network_hero_background_f9d961f6.png";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 interface HeroSectionProps {
   featuredEvent?: {
@@ -27,12 +27,7 @@ export default function HeroSection({ featuredEvent }: HeroSectionProps) {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroImage})` }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background"></div>
-      </div>
+      <AnimatedBackground />
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-20 text-center">
         <Badge 
