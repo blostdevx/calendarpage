@@ -1,37 +1,53 @@
-import { type User, type InsertUser } from "@shared/schema";
-import { randomUUID } from "crypto";
+import { type Evento } from "@shared/schema";
+import { promises as fs } from "fs";
+import path from "path";
 
-// modify the interface with any CRUD methods
-// you might need
+const EVENTS_FILE = path.join(process.cwd(), "data", "eventos.json");
 
 export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+  getAllEventos(): Promise<Evento[]>;
+  getEventoById(id: string): Promise<Evento | undefined>;
 }
 
 export class MemStorage implements IStorage {
-  private users: Map<string, User>;
+  private eventos: Evento[] = [];
+  private lastModified: number = 0;
 
   constructor() {
-    this.users = new Map();
+    this.loadEvents();
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
+  private async loadEvents() {
+    try {
+      await fs.mkdir(path.dirname(EVENTS_FILE), { recursive: true });
+      
+      const stats = await fs.stat(EVENTS_FILE).catch(() => null);
+      
+      if (!stats) {
+        await fs.writeFile(EVENTS_FILE, JSON.stringify([], null, 2));
+        this.eventos = [];
+        return;
+      }
+
+      if (stats.mtimeMs > this.lastModified) {
+        const data = await fs.readFile(EVENTS_FILE, "utf-8");
+        this.eventos = JSON.parse(data);
+        this.lastModified = stats.mtimeMs;
+      }
+    } catch (error) {
+      console.error("Error loading events:", error);
+      this.eventos = [];
+    }
   }
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+  async getAllEventos(): Promise<Evento[]> {
+    await this.loadEvents();
+    return this.eventos;
   }
 
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+  async getEventoById(id: string): Promise<Evento | undefined> {
+    await this.loadEvents();
+    return this.eventos.find(e => e.id === id);
   }
 }
 
