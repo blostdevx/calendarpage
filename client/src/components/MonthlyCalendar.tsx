@@ -176,9 +176,9 @@ export default function MonthlyCalendar({ eventos = [], onDateClick }: MonthlyCa
   }
 
   return (
-    <div ref={ref} className={`flex gap-4 transition-all duration-500 scroll-reveal ${isVisible ? 'is-visible' : ''} ${selectedEvents.length > 0 ? 'flex-row' : 'flex-col'}`}>
-      <div className={`bg-card/30 backdrop-blur-sm rounded-xl border border-primary/10 p-6 transition-all duration-500 ${
-        selectedEvents.length > 0 ? 'w-1/2' : 'w-full'
+    <div ref={ref} className={`flex flex-col md:flex-row gap-4 transition-all duration-500 scroll-reveal ${isVisible ? 'is-visible' : ''}`}>
+      <div className={`bg-card/30 backdrop-blur-sm rounded-xl border border-primary/10 p-4 md:p-6 transition-all duration-500 ${
+        selectedEvents.length > 0 ? 'w-full md:w-1/2' : 'w-full'
       }`}>
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-semibold" data-testid="text-calendar-month">
@@ -239,7 +239,7 @@ export default function MonthlyCalendar({ eventos = [], onDateClick }: MonthlyCa
 
       {selectedEvents.length > 0 && selectedDate && (
         <div 
-          className="w-1/2 bg-card/30 backdrop-blur-sm rounded-xl border border-primary/10 p-6 animate-in slide-in-from-right-4 fade-in-20 duration-500"
+          className="w-full md:w-1/2 bg-card/30 backdrop-blur-sm rounded-xl border border-primary/10 p-4 md:p-6 animate-in md:slide-in-from-right-4 fade-in-20 duration-500"
           data-testid="event-details-panel"
         >
           <div className="flex items-center justify-between mb-4">
