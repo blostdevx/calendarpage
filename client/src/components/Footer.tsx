@@ -1,5 +1,4 @@
 import { SiX, SiLinkedin, SiGithub, SiDiscord } from "react-icons/si";
-import { Shield } from "lucide-react";
 
 export default function Footer() {
   const scrollToSection = (sectionId: string) => {
@@ -28,9 +27,13 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Shield className="w-6 h-6 text-primary" />
-              <span className="text-xl font-bold">CyberEvents</span>
+            <div className="flex items-center gap-3 mb-4">
+              <img 
+                src="/sochisi-logo.png" 
+                alt="SOCHISI Logo" 
+                className="w-10 h-10 object-contain"
+              />
+              <span className="text-xl font-bold">SOCHISI</span>
             </div>
             <p className="text-sm text-muted-foreground">
               Tu calendario definitivo de eventos de hacking y ciberseguridad a nivel mundial.
@@ -108,12 +111,12 @@ export default function Footer() {
 
         <div className="pt-6 border-t border-primary/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <p data-testid="text-copyright">
-            © 2025 CyberEvents. Todos los derechos reservados.
+            © 2025 SOCHISI. Todos los derechos reservados.
           </p>
           <p className="flex items-center gap-2">
             Hecho con
             <span className="text-primary">❤️</span>
-            por la comunidad hacker
+            por SOCHISI
           </p>
         </div>
       </div>

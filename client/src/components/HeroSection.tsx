@@ -30,6 +30,14 @@ export default function HeroSection({ featuredEvent }: HeroSectionProps) {
       <AnimatedBackground />
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-20 text-center">
+        <div className="flex justify-center mb-8 animate-fade-in">
+          <img 
+            src="/sochisi-logo.png" 
+            alt="SOCHISI Logo" 
+            className="w-24 h-24 md:w-32 md:h-32 object-contain drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]"
+          />
+        </div>
+        
         <Badge 
           className="mb-6 bg-primary/20 text-primary border-primary/30 animate-glow" 
           data-testid="badge-hero-label"
