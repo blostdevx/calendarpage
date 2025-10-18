@@ -116,16 +116,14 @@ export default function Home() {
 
   const totalEventos = eventos.length;
   const totalPaises = new Set(eventos.map(e => e.pais)).size;
-  const proximosEventos = eventos.filter(e => 
-    new Date(e.fecha_inicio) >= new Date()
-  ).length;
   
-  const eventosActivosDelMes = eventos.filter(e => {
+  const eventosFuturos = eventos.filter(e => {
     const eventDate = new Date(e.fecha_inicio);
-    return eventDate >= now && 
-           eventDate.getMonth() === now.getMonth() && 
-           eventDate.getFullYear() === now.getFullYear();
-  }).length;
+    return eventDate >= now;
+  });
+  
+  const proximosEventos = eventosFuturos.length;
+  const eventosActivos = eventosFuturos.length;
 
   if (loading) {
     return (
@@ -146,7 +144,7 @@ export default function Home() {
         { icon: Calendar, label: "Total de Eventos", value: totalEventos, suffix: "" },
         { icon: Globe, label: "Países", value: totalPaises, suffix: "" },
         { icon: TrendingUp, label: "Próximos Eventos", value: proximosEventos, suffix: "" },
-        { icon: Zap, label: "Eventos Activos", value: eventosActivosDelMes, suffix: "" },
+        { icon: Zap, label: "Eventos Activos", value: eventosActivos, suffix: "" },
       ]} />
 
       <div className="max-w-7xl mx-auto px-4 py-20" data-section="events">
