@@ -10,9 +10,10 @@ import { useIsMobile } from "@/hooks/use-mobile";
 interface MonthlyCalendarProps {
   eventos?: Evento[];
   onDateClick?: (date: Date | undefined) => void;
+  onMonthChange?: (month: number, year: number) => void;
 }
 
-export default function MonthlyCalendar({ eventos = [], onDateClick }: MonthlyCalendarProps) {
+export default function MonthlyCalendar({ eventos = [], onDateClick, onMonthChange }: MonthlyCalendarProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedEvents, setSelectedEvents] = useState<Evento[]>([]);
@@ -27,17 +28,23 @@ export default function MonthlyCalendar({ eventos = [], onDateClick }: MonthlyCa
   const startingDayOfWeek = firstDayOfMonth.getDay();
 
   const previousMonth = () => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
+    const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
+    setCurrentDate(newDate);
+    onMonthChange?.(newDate.getMonth(), newDate.getFullYear());
     closeDetails();
   };
 
   const nextMonth = () => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
+    const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+    setCurrentDate(newDate);
+    onMonthChange?.(newDate.getMonth(), newDate.getFullYear());
     closeDetails();
   };
 
   const goToToday = () => {
-    setCurrentDate(new Date());
+    const newDate = new Date();
+    setCurrentDate(newDate);
+    onMonthChange?.(newDate.getMonth(), newDate.getFullYear());
     closeDetails();
   };
 

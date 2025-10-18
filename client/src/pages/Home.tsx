@@ -30,6 +30,10 @@ export default function Home() {
     niveles: [],
     selectedDate: undefined
   });
+  
+  const now = new Date();
+  const [calendarMonth, setCalendarMonth] = useState(now.getMonth());
+  const [calendarYear, setCalendarYear] = useState(now.getFullYear());
 
   useEffect(() => {
     fetch('/eventos.json')
@@ -86,17 +90,15 @@ export default function Home() {
   const sortedEventos = [...filteredEventos].sort((a, b) => 
     new Date(a.fecha_inicio).getTime() - new Date(b.fecha_inicio).getTime()
   );
-
-  const now = new Date();
-  const currentMonth = now.getMonth();
-  const currentYear = now.getFullYear();
   
-  const upcomingEventos = sortedEventos.filter(e => {
+  const upcomingEventos = eventos.filter(e => {
     const eventDate = new Date(e.fecha_inicio);
     return eventDate >= now && 
-           eventDate.getMonth() === currentMonth && 
-           eventDate.getFullYear() === currentYear;
-  }).slice(0, 6);
+           eventDate.getMonth() === calendarMonth && 
+           eventDate.getFullYear() === calendarYear;
+  }).sort((a, b) => 
+    new Date(a.fecha_inicio).getTime() - new Date(b.fecha_inicio).getTime()
+  ).slice(0, 6);
 
   const featuredEventData = eventos.find(e => e.destacado === true) || upcomingEventos[0];
   const featuredEvent = featuredEventData ? {
@@ -121,8 +123,8 @@ export default function Home() {
   const eventosActivosDelMes = eventos.filter(e => {
     const eventDate = new Date(e.fecha_inicio);
     return eventDate >= now && 
-           eventDate.getMonth() === currentMonth && 
-           eventDate.getFullYear() === currentYear;
+           eventDate.getMonth() === now.getMonth() && 
+           eventDate.getFullYear() === now.getFullYear();
   }).length;
 
   if (loading) {
@@ -168,6 +170,10 @@ export default function Home() {
             <MonthlyCalendar 
               eventos={eventos} 
               onDateClick={(date) => setFilters({ ...filters, selectedDate: date || undefined })}
+              onMonthChange={(month, year) => {
+                setCalendarMonth(month);
+                setCalendarYear(year);
+              }}
             />
             
             <div>
